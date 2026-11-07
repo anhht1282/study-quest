@@ -1,0 +1,69 @@
+/* 🚀 Extension quests + 💡 Spark: an inventor's notebook — squared paper, amber spark accent. */
+:root { --spark: #c77d0a; --spark-soft: color-mix(in srgb, var(--spark) 14%, var(--card)); --grid: rgba(31, 122, 140, .08); }
+@media (prefers-color-scheme: dark) { :root { --spark: #f5c04a; --grid: rgba(70, 179, 196, .09); } }
+
+/* entry points */
+.quest-line { color: var(--spark); font-weight: 600; }
+.quest-line.locked, .quest-entry.locked p { color: var(--ink-soft); }
+.quest-entry {
+  border-top: 5px solid var(--spark);
+  background: linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 18px 18px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 18px 18px, var(--card);
+}
+.quest-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.quest-go { border: 2px dashed var(--spark); }
+.quest-go:hover { background: var(--spark-soft); }
+
+/* quest screen */
+.quest-ask { font-size: clamp(1.3rem, 1rem + 1.4vw, 1.9rem); max-width: 40ch; }
+.quest-why { border-left: 5px solid var(--sea); }
+.quest-card {
+  position: relative; border-top: 5px solid var(--spark);
+  background: linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 22px 22px, var(--card);
+}
+.quest-head { display: flex; justify-content: flex-end; }
+.quest-score {
+  font-family: var(--font-head); font-weight: 800; font-size: 1.15rem; color: var(--spark);
+  background: var(--card); padding: 2px 12px; border-radius: 99px; box-shadow: inset 0 0 0 2px var(--spark);
+}
+.quest-form { display: grid; gap: 12px; }
+.quest-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.quest-row.col { flex-direction: column; align-items: stretch; }
+.quest-field { display: grid; gap: 4px; min-width: 120px; flex: 1 1 140px; }
+.quest-input { font-size: 1.1rem; }
+.quest-challenge { background: var(--spark-soft); padding: 8px 12px; border-radius: var(--radius-s); }
+.quest-found, .quest-seq { font-family: var(--font-head); font-size: 1.05rem; letter-spacing: .02em; }
+.quest-seq { font-size: 1.3rem; color: var(--sea-deep); }
+.quest-reveal, .quest-made { font-weight: 600; color: var(--sea-deep); }
+.quest-criteria { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+.quest-criteria li { display: flex; gap: 8px; color: var(--ink-soft); }
+.quest-criteria li.on { color: var(--good); font-weight: 600; }
+.quest-criteria .tick { width: 1.2em; text-align: center; }
+.quest-panel { margin-top: 10px; padding: 12px; border: 2px dashed var(--line); border-radius: var(--radius-s); display: grid; gap: 10px; }
+.quest-reasons { display: grid; gap: 8px; }
+.opt.done { box-shadow: inset 0 0 0 2px var(--good); }
+.opt.done::before { content: "✓ "; color: var(--good); }
+.quest-fb { min-height: 1.6em; font-weight: 600; margin-top: 10px; }
+.quest-fb.good { color: var(--spark); }
+.quest-full { color: var(--good); font-weight: 600; }
+
+/* HUD chip + journey card */
+.hud-spark { font-weight: 700; color: var(--spark); white-space: nowrap; }
+.spark-card { border-top: 5px solid var(--spark); }
+.spark-title { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; color: var(--spark); }
+.spark-card .bar i { background: linear-gradient(90deg, var(--gold), var(--spark)); }
+.disc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; margin: 10px 0; }
+.disc {
+  aspect-ratio: 3 / 4; border-radius: 8px; display: grid; place-items: center; font-size: .7rem; font-weight: 700;
+  border: 2px dashed var(--line); color: var(--ink-soft); background: var(--paper);
+}
+.disc[data-on] { border: 2px solid var(--spark); background: var(--spark-soft); color: var(--ink); }
+.disc[data-on]::before { content: "💡"; display: block; font-size: 1rem; }
+.spark-log { padding-left: 1.1em; margin: 6px 0 0; }
+.spark-log li { margin: 3px 0; }
+.spark-log b { color: var(--spark); }
+
+@media (max-width: 520px) {
+  .quest-field { flex-basis: 100%; }
+}

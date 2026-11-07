@@ -1,0 +1,148 @@
+/* Characters, bilingual subtitles and celebration animations. Motion uses transform/opacity only. */
+
+/* ---------- bilingual ---------- */
+.sub { display: block; margin-top: 2px; font-size: .86em; font-weight: 400; font-style: italic; color: var(--ink-soft); }
+h1 .sub, .node-title .sub { font-family: var(--font-body); font-size: .5em; letter-spacing: 0; }
+.choice .sub { font-size: .82em; }
+.lang-switch { display: inline-flex; border-radius: 99px; box-shadow: inset 0 0 0 2px var(--line); overflow: hidden; }
+.lang-switch button { border: 0; background: transparent; padding: 6px 10px; font-size: .8rem; font-weight: 700; }
+.lang-switch button.on { background: var(--ink); color: var(--paper); }
+.welcome { align-items: start; }
+.welcome-hero { position: sticky; top: 90px; padding-top: 40px; }
+.welcome-lang { margin-top: 18px; display: flex; align-items: center; gap: 10px; }
+.welcome-lang .lbl { margin: 0; }
+
+/* ---------- character ---------- */
+.mq-avatar { width: 100%; height: 100%; overflow: visible; display: block; }
+.mq-avatar .av-body { transform-origin: 60px 100px; transform-box: view-box; }
+.hud-avatar { display: block; width: 46px; height: 46px; padding: 2px; border-radius: 50%; background: var(--card); box-shadow: inset 0 0 0 2px var(--gold); }
+.idle .av-body, .hud-avatar .av-body, .map-av .av-body, .books-av .av-body { animation: bob 3.2s ease-in-out infinite; }
+.jump { animation: jump .6s cubic-bezier(.3, 1.6, .5, 1); }
+.wobble { animation: wobble .6s ease-in-out; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes jump { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-14px) scale(1.08, .94); } 70% { transform: translateY(2px) scale(.96, 1.04); } 100% { transform: none; } }
+@keyframes wobble { 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+
+.map-head { display: flex; gap: 18px; align-items: center; }
+.map-av, .books-av { width: 110px; height: 110px; flex: none; }
+.books-head { display: flex; gap: 18px; align-items: center; }
+
+.char-editor { display: grid; grid-template-columns: 170px 1fr; gap: 18px; align-items: start; margin: 6px 0 12px; }
+.char-stage { display: grid; justify-items: center; gap: 6px; padding: 12px; border-radius: var(--radius-l);
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--gold) 22%, var(--card)), var(--paper-2)); }
+.char-preview { width: 140px; height: 140px; }
+.char-nick { margin: 0; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; text-align: center; }
+.char-groups { display: grid; gap: 10px; }
+.char-group .lbl { display: block; margin: 0 0 6px; font-size: .85rem; }
+.opts { display: flex; flex-wrap: wrap; gap: 6px; }
+.opt { border: 2px solid var(--line); background: var(--paper); border-radius: 99px; padding: 5px 12px; font-size: .85rem; font-weight: 600;
+  transition: transform .15s var(--ease), border-color .15s; }
+.opt:hover { transform: translateY(-2px); }
+.opt.on { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 18%, var(--card)); }
+.opt.locked { opacity: .55; }
+.opt.animal { width: 50px; height: 50px; padding: 3px; border-radius: 14px; }
+.swatch { width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--card); box-shadow: 0 0 0 2px var(--line); transition: transform .15s var(--ease); }
+.swatch:hover { transform: scale(1.12); }
+.swatch.on { box-shadow: 0 0 0 3px var(--ink); }
+
+.profile-card { display: flex; gap: 22px; align-items: center; padding: 22px 24px; margin: 6px 0 14px; border-radius: var(--radius-l);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--sea) 20%, var(--card)), color-mix(in srgb, var(--gold) 20%, var(--card)));
+  box-shadow: var(--shadow); }
+.pc-av { width: 150px; height: 150px; flex: none; cursor: pointer; }
+.pc-body h1 { margin: 0; }
+.pc-rank { font-weight: 700; margin: 2px 0; }
+.pc-motto { font-family: var(--font-head); font-size: 1.15rem; color: var(--sea); margin: 4px 0 10px; }
+.pc-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.pc-stats span { display: grid; padding: 6px 14px; border-radius: var(--radius-s); background: var(--card); font-size: .8rem; text-align: center; }
+.pc-stats b { font-family: var(--font-head); font-size: 1.25rem; }
+.char-edit summary { cursor: pointer; font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; }
+
+.finish-av, .break-av, .levelup-av { width: 120px; height: 120px; margin: 0 auto; }
+.levelup { text-align: center; }
+
+/* ---------- motion & celebration ---------- */
+#fx-layer { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.confetti { position: absolute; width: 9px; height: 13px; border-radius: 2px; will-change: transform, opacity; }
+.float-text { position: absolute; font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--gold);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .2); white-space: nowrap; will-change: transform, opacity; }
+.talk { animation: talk .45s var(--ease); }
+@keyframes talk { 0% { transform: scale(.97); } 60% { transform: scale(1.015); } 100% { transform: none; } }
+.tutor .owl { display: inline-block; transform-origin: 50% 90%; }
+.tutor.talk .owl { animation: wobble .5s ease-in-out; }
+.shake .qcard { animation: shake .35s; }
+.stars .on { display: inline-block; animation: starpop .5s var(--ease) both; animation-delay: var(--d, 0ms); }
+@keyframes starpop { 0% { transform: scale(0) rotate(-40deg); } 70% { transform: scale(1.35) rotate(8deg); } 100% { transform: none; } }
+.section { animation: rise .45s var(--ease) both; animation-delay: calc(var(--i, 0) * 60ms); }
+.section:hover { transform: translateY(-3px); transition: transform .2s var(--ease); }
+.step-in { animation: rise .35s var(--ease) both; }
+.choice.right { animation: jump .5s var(--ease); }
+.door { perspective: 900px; overflow: hidden; }
+.door-panel { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,0) 40%);
+  transform-origin: left center; opacity: 0; transition: transform .45s ease-in, opacity .2s; }
+.door.opening .door-panel { opacity: 1; transform: rotateY(-75deg); }
+.door.opening { transform: scale(1.03); }
+.node:active { transform: scale(.98); }
+
+/* ---------- countdown timer ---------- */
+.q-meta { align-items: center; }
+.timer { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; padding: 3px 12px 3px 3px; border-radius: 99px;
+  background: var(--paper-2); font-size: .8rem; font-weight: 700; --tc: var(--good); transition: background .3s; }
+.timer.decay { --tc: var(--gold); background: color-mix(in srgb, var(--gold) 18%, var(--paper-2)); }
+.timer.floor { --tc: var(--num); background: color-mix(in srgb, var(--num) 14%, var(--paper-2)); }
+.tm-ring { position: relative; width: 38px; height: 38px; flex: none; }
+.tm-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.tm-bg { fill: var(--card); stroke: var(--line); stroke-width: 4; }
+.tm-fg { fill: none; stroke: var(--tc); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset .25s linear, stroke .3s; }
+.tm-sec { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-head); font-size: .9rem; }
+.timer.decay .tm-ring { animation: tmPulse 1s ease-in-out infinite; }
+@keyframes tmPulse { 50% { transform: scale(1.08); } }
+.setting { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0 12px; border-bottom: 1px dashed var(--line); margin-bottom: 8px; }
+.setting p { margin: 2px 0 0; }
+
+/* ---------- celebrations ---------- */
+.spark { position: absolute; width: 7px; height: 7px; border-radius: 50%; box-shadow: 0 0 8px currentColor; will-change: transform, opacity; }
+.twinkle { position: absolute; font-style: normal; font-size: 1.2rem; will-change: transform, opacity; }
+.fx-banner { position: fixed; left: 50%; top: 42%; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 2px;
+  padding: 16px 30px 14px; border-radius: 26px; text-align: center; color: #fff; pointer-events: none;
+  box-shadow: 0 18px 40px -16px rgba(0,0,0,.55), inset 0 -4px 0 rgba(0,0,0,.15); }
+.fx-banner b { font-family: var(--font-head); font-size: clamp(1.8rem, 1.2rem + 3vw, 3rem); font-weight: 800; line-height: 1.1;
+  text-shadow: 0 3px 0 rgba(0,0,0,.18); }
+.fx-banner span { font-weight: 600; font-size: .95rem; opacity: .95; }
+.fx-banner.good { background: linear-gradient(135deg, #2e8b57, #1f9a8a); }
+.fx-banner.gold { background: linear-gradient(135deg, #f0b429, #e2674f); }
+.fx-banner.fire { background: linear-gradient(135deg, #ff7a3d, #d9311f); }
+.fx-banner.cool { background: linear-gradient(135deg, #5aa9e6, #7a5cc7); }
+.finish.celebrate { animation: glow 1.6s ease-in-out 2; }
+@keyframes glow { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 55%, transparent), var(--shadow); } }
+.finish.celebrate .finish-av .av-body { animation: dance .5s ease-in-out 6; }
+@keyframes dance { 0%, 100% { transform: rotate(0) translateY(0); } 25% { transform: rotate(-10deg) translateY(-6px); } 75% { transform: rotate(10deg) translateY(-6px); } }
+.node.next { animation: rise .5s var(--ease) both, nudge 3s ease-in-out 1s infinite; }
+/* a short hop, then rest: draws the eye without constant motion */
+@keyframes nudge { 0%, 24%, 100% { transform: none; } 8% { transform: translateY(-5px); } 16% { transform: translateY(1px); } }
+.node.done::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%); background-size: 250% 100%;
+  animation: shimmer 3.5s ease-in-out infinite; }
+@keyframes shimmer { 0% { background-position: 120% 0; } 60%, 100% { background-position: -120% 0; } }
+.btn.big:not(:disabled):hover { animation: wiggle .4s ease-in-out; }
+/* only grow, never slide: a button that moved away from the pointer lost :hover, snapped back and wiggled forever */
+@keyframes wiggle { 30% { transform: scale(1.04) rotate(-.6deg); } 60% { transform: scale(1.04) rotate(.6deg); } }
+
+@media (max-width: 720px) {
+  .timer { margin-left: 0; }
+  .char-editor { grid-template-columns: 1fr; }
+  .welcome-hero { position: static; padding-top: 0; }
+  .profile-card { flex-direction: column; text-align: center; }
+  .pc-stats { justify-content: center; }
+  .map-av, .books-av { width: 72px; height: 72px; }
+  .lang-switch button { padding: 5px 7px; font-size: .72rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .idle .av-body, .hud-avatar .av-body, .map-av .av-body, .books-av .av-body { animation: none; }
+  .node.done::after, .node.next, .timer.decay .tm-ring { animation: none; }
+}
+
+/* "What do I do?" panel opens with a short unfold; the button hops once when Owl points to it */
+.howto-panel.unfold { animation: unfold .28s var(--ease) both; transform-origin: 0 0; }
+@keyframes unfold { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
+.howto-btn.nudge-once { animation: nudge 1.6s ease-in-out 2; }
+.input.answer.shake { animation: shake .35s; }
