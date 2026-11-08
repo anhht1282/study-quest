@@ -240,4 +240,9 @@
     challenge: { title: "Thử thách Việt Nam", intro: "Tính nhanh, tìm x và giải toán lời văn với số thập phân.", questions: ch },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "4.2-01": "dec-addsub", "4.2-02": "dec-addsub", "4.2-04": "dec-addsub", "4.2-05": "dec-addsub", "4.2-06": "dec-addsub", "4.2-03": "dec-from-whole", "4.2-10": "dec-from-whole", "4.2-08": "dec-missing", "4.3-01": "dec-mul", "4.3-02": "dec-mul", "4.3-03": "dec-mul", "4.3-04": "dec-mul", "4.3-05": "dec-mul", "4.3-06": "dec-mul", "4.3-08": "dec-mul", "4.3-09": "known-product", "4.3-07": ["times-near", { "n": 9}], "4.5-03": ["times-near", { "n": 9}], "4.5-04": ["times-near", { "n": 9}], "4.5-07": ["times-near", { "n": 99}], "4.4-01": "dec-div", "4.4-02": "dec-div", "4.4-03": "dec-div", "4.4-07": "dec-div", "4.4-05": "dec-div-round", "4.4-06": "dec-div-round", "4.4-08": "dec-div-round", "4.5-01": "tenth-of", "4.5-02": "tenth-of", "4.5-05": "round-compensate" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 4; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -238,4 +238,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "16.3-02": "pie-angle", "16.3-03": "pie-angle", "16.3-01": "pie-read", "16.3-08": "pie-read", "16.4-02": "pct-of", "16.4-03": "pct-of", "16.4-04": "pct-of", "16.4-10": "pct-whole", "16.5-07": "venn-both", "16.6-01": ["stats5", { "kind": "mean" }], "16.6-02": ["stats5", { "kind": "median" }], "16.6-03": ["stats5", { "kind": "range" }], "16.6-07": "mean-missing" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 16; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

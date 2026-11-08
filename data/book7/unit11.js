@@ -309,4 +309,9 @@
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "11.1-06": "exchange", "11.1-07": "exchange", "11.2-01": "line-value", "11.2-02": "line-value", "11.2-04": "line-value" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 11; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

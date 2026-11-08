@@ -203,4 +203,9 @@
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "12.2-01": "share-ratio", "12.2-02": "share-ratio", "12.2-03": "share-ratio", "12.2-04": "share-ratio", "12.2-05": "share-ratio", "12.2-06": "share-ratio", "12.2-08": "share-ratio", "12.2-09": "share-ratio3", "12.3-01": "unitary", "12.3-03": "unitary", "12.3-05": "unitary", "12.3-06": "unitary", "12.3-07": "unitary", "12.3-02": "unitary-money", "12.3-04": "unitary-money" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 12; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

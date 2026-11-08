@@ -277,4 +277,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "13.1-02": "frac-to-pct", "13.1-03": "pct-to-frac" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 13; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

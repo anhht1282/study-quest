@@ -188,4 +188,9 @@
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "10.1-01": "pct-to-dec", "10.2-01": "pct-to-dec", "10.2-03": "pct-to-dec", "10.1-07": "pct-to-dec", "10.2-08": "pct-to-dec", "10.1-03": "dec-to-pct", "10.1-04": "frac-to-pct", "10.1-05": "frac-to-pct", "10.1-02": "pct-to-frac", "10.2-07": "pct-of", "10.2-06": "pct-share", "10.2-09": "pct-whole", "10.2-10": "pct-ratio" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 10; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

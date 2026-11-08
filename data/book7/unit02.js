@@ -294,4 +294,9 @@
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "2.2-01": "subst1", "2.2-02": "subst1", "2.2-03": "subst2", "2.2-04": "subst2", "2.2-05": "subst-frac", "2.2-06": "subst-frac", "2.2-07": "formula-rate", "2.2-08": "formula-inverse", "2.5-01": "solve1", "2.5-02": "solve1", "2.5-08": "solve1", "2.5-03": "solve2", "2.5-04": "solve2", "2.5-05": "solve2", "2.5-06": "word-sell", "2.5-07": "word-age", "2.6-04": "int-bound", "2.6-05": "int-bound", "2.6-06": "int-bound", "2.6-07": "int-bound", "2.6-08": "int-bound", "2.6-10": "int-range" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 2; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -139,4 +139,9 @@
     challenge: { title: "Thử thách Việt Nam", intro: "Làm tròn, ước lượng và nhân chia nhanh với 10, 100, 1000 trong các bài toán đời thường.", questions: ch },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "3.1-01": "pow10", "3.1-02": "pow10", "3.1-03": "mul-pow10", "3.1-04": "mul-pow10", "3.1-06": "mul-pow10", "3.1-07": "mul-pow10", "3.1-05": "div-pow10", "3.1-08": "div-pow10", "3.2-01": "round-dp", "3.2-02": "round-dp", "3.2-03": "round-dp", "3.2-04": "round-dp", "3.2-05": "round-dp", "3.2-06": "round-dp" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 3; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -206,4 +206,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "15.1-02": ["area-convert", { "u": 0}], "15.1-03": ["area-convert", { "u": 0}], "15.1-04": ["area-convert", { "u": 1}], "15.1-05": ["area-convert", { "u": 1}], "15.1-06": ["area-convert", { "u": 1}], "15.2-01": ["area-convert", { "u": 2}], "15.2-02": ["area-convert", { "u": 2}], "15.2-03": ["area-convert", { "u": 2}], "15.2-04": ["area-convert", { "u": 2}], "15.2-06": "rect-ha", "15.2-07": "rect-ha", "15.3-03": "triangle-area", "15.3-06": "triangle-area", "15.3-04": "triangle-height", "15.4-02": "cuboid-volume", "15.4-03": "cuboid-volume", "15.4-04": "cuboid-volume", "15.4-06": "cuboid-missing", "15.5-01": "surface-area", "15.5-03": "surface-area", "15.5-04": "surface-area", "15.5-05": "surface-area", "15.5-07": "cube-reverse" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 15; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

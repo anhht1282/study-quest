@@ -230,7 +230,8 @@ MQ.state = (function () {
     update(function (d) {
       const rec = d.answers[key] || { tries: 0, correct: false, hints: 0, firstTry: null };
       rec.tries += 1;
-      rec.hints = Math.max(rec.hints, hintsUsed);
+      // hints only count until the first solve: opening hints later (e.g. in review) must not lower mastery
+      if (!rec.correct) rec.hints = Math.max(rec.hints, hintsUsed);
       if (rec.firstTry === null) rec.firstTry = ok && hintsUsed === 0;
       if (ok && !rec.correct) {
         rec.correct = true;

@@ -401,4 +401,9 @@
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "5.1-04": "quad-fourth", "5.3-03": "quad-fourth", "5.2-02": ["angle-cross", { "kind": "adjacent" }], "5.2-03": ["angle-cross", { "kind": "opposite" }]};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 5; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -314,4 +314,9 @@
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "7.1-01": "equiv-frac", "7.1-02": "equiv-frac", "7.1-05": "to-mixed", "7.2-01": "frac-add", "7.2-03": "frac-add", "7.2-02": "mixed-add", "7.2-04": "mixed-add", "7.2-06": "mixed-add", "7.2-05": "mixed-sub", "7.3-01": "frac-mul", "7.3-02": "frac-mul", "7.3-03": "frac-mul", "7.3-04": "frac-mul", "7.3-06": "frac-mul", "7.3-05": "frac-square", "7.4-01": "frac-div", "7.4-02": "frac-div", "7.4-03": "frac-div", "7.4-04": "frac-div", "7.4-05": "frac-div", "7.4-06": "frac-div", "7.5-01": "frac-of", "7.5-02": "frac-of", "7.5-03": "frac-of", "7.5-04": "frac-of", "7.5-05": "frac-of", "7.5-07": "frac-of", "7.5-10": "frac-of" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 7; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -502,4 +502,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "14.1-01": "map-cm", "14.1-02": "map-ratio", "14.1-04": "map-ratio", "14.1-03": "map-real-to-map", "14.2-03": "dist-axis", "14.2-04": "dist-axis", "14.2-07": "dist-axis", "14.6-01": "enlarge", "14.6-03": "enlarge", "14.6-04": "enlarge" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 14; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

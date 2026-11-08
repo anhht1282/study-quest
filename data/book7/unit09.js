@@ -328,4 +328,9 @@
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants*.js): family that re-asks each question with fresh numbers.
+  const GEN = { "9.1-01": "seq-arith", "9.1-02": "seq-arith", "9.1-03": "seq-mult", "9.1-04": "seq-two-step", "9.1-05": "seq-two-step", "9.1-06": "seq-two-step", "9.1-09": "seq-backwards", "9.2-01": "pattern-far", "9.2-02": "pattern-far", "9.2-04": "pattern-far", "9.2-05": "pattern-far", "9.2-10": "pattern-far", "9.3-02": "nth-use", "9.3-06": "nth-use", "9.3-09": "nth-position", "9.4-01": "fm-output", "9.4-02": "fm-output", "9.4-03": "fm-output", "9.4-04": "fm-inverse", "9.4-05": "fm-inverse", "9.4-06": "fm-inverse", "9.4-07": "fm-inverse", "9.4-10": "fm-two-step" };
+  window.GAME_DATA.units.filter(function (u) { return u.id === 9; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();
