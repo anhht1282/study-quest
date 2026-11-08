@@ -425,4 +425,18 @@
       ]
     }
   });
+  // 🎲 Number variants for spaced review (js/variants.js): family that re-asks each question with fresh numbers.
+  const GEN = {
+    "1.1-01": "int-addsub", "1.1-02": "int-addsub", "1.1-03": "int-addsub", "1.1-04": "int-addsub", "1.1-06": "int-addsub",
+    "1.1-05": "int-other", "1.1-07": "estimate-add", "1.1-08": "int-add3",
+    "1.2-01": "int-mul", "1.2-05": "int-mul", "1.2-02": "int-div", "1.2-03": "int-div", "1.2-04": "int-missing",
+    "1.2-06": "int-brackets", "1.2-07": "int-brackets", "1.2-08": "estimate-mul",
+    "1.3-01": "lcm2", "1.3-02": "lcm2", "1.3-03": "lcm2", "1.3-04": "lcm2", "1.3-05": "lcm3", "1.3-06": "lcm3",
+    "1.4-01": "factor-count", "1.4-02": "hcf2", "1.4-03": "hcf2", "1.4-04": "hcf2", "1.4-05": "hcf2", "1.4-07": "hcf3",
+    "1.5-01": "digit-sum", "1.5-08": ["next-multiple", { d: 6 }], "1.5-09": ["next-multiple", { d: 11 }],
+    "1.6-01": "square", "1.6-02": "sqrt", "1.6-03": "cube", "1.6-05": "roots-mixed",
+    "1.6-06": "sqrt-closest", "1.6-07": "sqrt-between", "1.6-08": "cbrt-between"
+  };
+  const unit1 = window.GAME_DATA.units.filter(function (u) { return u.id === 1; }).pop();
+  unit1.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
 })();

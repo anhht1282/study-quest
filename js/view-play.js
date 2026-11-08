@@ -8,7 +8,13 @@
   function poolFor(p) {
     if (p.review) {   // 🔁 today's due questions, interleaved across units; each item carries its own unit
       const d = MQ.state.get(), R = MQ.review;
-      const items = R.due(MQ.units(), d.answers, d.review, R.dayIndex(Date.now()), MQ.state.reviewLeft());
+      const today = R.dayIndex(Date.now());
+      const items = R.due(MQ.units(), d.answers, d.review, today, MQ.state.reviewLeft()).map(function (x) {
+        // 🎲 fresh numbers when the question has a variant family (js/variants.js); same seed all day
+        const rec = d.review[x.key], seed = x.key + "|" + ((rec && rec.n) || 0) + "|" + today;
+        const v = MQ.variants ? MQ.variants.make(x.q, seed) : null;
+        return v ? Object.assign({}, x, { q: v }) : x;
+      });
       return { unit: items.length ? items[0].unit : MQ.units()[0], items: items, questions: items.map(function (x) { return x.q; }), title: t("review.title") };
     }
     if (p.mine) return { unit: { id: 0 }, questions: MQ.state.get().myQuestions, title: t("play.mine") };
@@ -154,10 +160,14 @@
 
     function questionCard(q) {
       const k = "q." + q.id;
-      const qText = I.pair(U, k + ".q", q.q);
+      // 🎲 a review variant carries its own text in both languages; the book's translations would show old numbers
+      const tx = q.tr
+        ? function (field) { return I.pick(q.tr.en[field], q.tr.vi[field]); }
+        : function (field, orig) { return I.pair(U, k + "." + field, orig); };
+      const qText = tx("q", q.q);
       const choiceItems = q.choices ? MQ.ui.biItems(I.pair(U, k + ".choices", q.choices)) : [];
-      const hintItems = MQ.ui.biItems(I.pair(U, k + ".hints", q.hints || []));
-      const explain = I.pair(U, k + ".explain", q.explain || "");
+      const hintItems = MQ.ui.biItems(tx("hints", q.hints || []));
+      const explain = tx("explain", q.explain || "");
       let tries = 0, hints = 0, closed = false, selected = q.type === "multi" ? [] : null;
       const tm = timerWidget(q);
 
