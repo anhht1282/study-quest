@@ -48,6 +48,7 @@
     const pool = poolFor(p);
     if (p.review && !pool.items.length) { setTimeout(function () { MQ.ui.go("map"); }, 0); return h("div"); }
     let U = pool.unit;   // in review mode it switches to each question's own unit (see ask)
+    let curItem = null;  // 🔁 review mode: the section card being asked ({ unit, sec, q })
     const run = MQ.adaptive.createRun(U, pool.questions, MQ.adaptive.startLevelFor(U, pool.questions));
     if (p.boss || p.mine) run.length = Math.min(p.mine ? 10 : 8, pool.questions.length);
     if (p.review) run.length = pool.items.length;
@@ -144,6 +145,7 @@
       stopTick();
       const item = p.review ? pool.items[run.done.length] : null;
       const q = p.review ? (item ? item.q : null) : MQ.adaptive.next(run);
+      curItem = item;
       if (item) U = item.unit;
       renderHead();
       stage.innerHTML = "";
@@ -268,7 +270,7 @@
         const f = tm.factor();
         tm.stop();
         // review first: recordAnswer moves "last answered" to today, which would make the question look not due
-        const reviewed = p.review ? MQ.state.reviewAnswer(U.id, q.id, true) : 0;
+        const reviewed = p.review && curItem ? MQ.state.reviewAnswer(curItem.unit, curItem.sec, true) : 0;
         const gained = MQ.state.recordAnswer(U.id, q, true, hints, f) + reviewed;
         praise(q, tries, hints, tm);
         summary.ok += 1; summary.xp += gained;
@@ -291,7 +293,7 @@
         tm.stop();
         summary.combo = 0;
         summary.perfect = false;
-        if (p.review) MQ.state.reviewAnswer(U.id, q.id, false);
+        if (p.review && curItem) MQ.state.reviewAnswer(curItem.unit, curItem.sec, false);
         MQ.state.recordAnswer(U.id, q, false, hints);
         MQ.adaptive.report(run, q, false, hints, tries);
         reveal(false, 0);

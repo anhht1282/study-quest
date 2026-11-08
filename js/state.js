@@ -47,7 +47,7 @@ MQ.state = (function () {
       spark: 0,               // 💡 creativity points (separate from XP)
       quests: {},             // "u1:1.1-x1" -> { best, keys: [found results], runs }
       sparkLog: [],           // last SPARK_LOG entries: { at, k, p, why: { key, vars } }
-      review: {},             // 🔁 "u1:1.1-03" -> { box: 0..5, due: local day number } (js/review.js)
+      review: {},             // 🔁 "u1#1.1" card -> { box: 0..5, due: day, n }; "u1:1.1-03" first-solve seed (js/review.js)
       reviewDay: { day: 0, n: 0 },  // 🔁 review answers counted today (daily cap across runs)
       settings: { sessionMin: 25, sound: false, timer: true }
     };
@@ -153,7 +153,10 @@ MQ.state = (function () {
       if (!isObj(r)) return;
       const due = Math.floor(Number(r.due));
       if (!Number.isFinite(due)) return;
-      d.review[str(k, 60)] = { box: Math.max(0, Math.min(5, Math.floor(Number(r.box) || 0))), due: due };
+      const rec = { box: Math.max(0, Math.min(5, Math.floor(Number(r.box) || 0))), due: due };
+      const n = Math.floor(Number(r.n));
+      if (Number.isFinite(n) && n > 0) rec.n = Math.min(n, 1e6);   // section-card rotation counter
+      d.review[str(k, 60)] = rec;
     });
   }
 
@@ -244,14 +247,16 @@ MQ.state = (function () {
     return gained;
   }
 
-  // 🔁 Records a review answer. Only a question that is due today counts: it is rescheduled and, when right,
-  // pays MQ.review.XP. Anything else (not due, already reviewed today) changes nothing — no farming by replaying.
-  function reviewAnswer(unitId, qid, ok) {
-    const R = MQ.review, key = qKey(unitId, qid), today = R.dayIndex(Date.now());
-    if (!R.isDue(data.answers, data.review, key, today) || reviewLeft() <= 0) return 0;
+  // 🔁 Records a review answer for a section card ({ unit, sec } from MQ.review.due). Only a card that is due
+  // today counts: it is rescheduled and, when right, pays MQ.review.XP. Anything else (not due, over the daily
+  // cap) changes nothing — no farming by replaying.
+  function reviewAnswer(unit, sec, ok) {
+    const R = MQ.review, today = R.dayIndex(Date.now());
+    if (!unit || !sec || !R.isCardDue(data.answers, data.review, unit, sec, today) || reviewLeft() <= 0) return 0;
+    const key = R.cardKey(unit.id, sec.id), rec = R.cardRec(data.answers, data.review, unit, sec);
     const gained = ok ? R.XP : 0;
     update(function (d) {
-      d.review[key] = R.schedule(d.review[key] || null, ok, today);
+      d.review[key] = R.schedule(rec, ok, today);
       d.reviewDay = { day: today, n: reviewDoneToday(d, today) + 1 };
       d.xp += gained;
     });
