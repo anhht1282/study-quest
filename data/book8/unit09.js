@@ -390,4 +390,9 @@
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"9.1-01": "seq-arith", "9.1-03": "seq-two-step", "9.1-04": "seq-two-step", "9.1-09": "term-far", "9.1-10": "seq-backwards", "9.2-01": "pattern-far", "9.2-04": "pattern-far", "9.2-06": "pattern-far", "9.2-09": "pattern-far", "9.3-01": "nth-linear", "9.3-02": "nth-linear", "9.3-09": "nth-linear-pos", "9.4-01": "fm-output", "9.4-02": "fm-output", "9.4-03": "fm-output", "9.4-04": "fm-two-step", "9.4-05": "fm-two-step"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 9; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

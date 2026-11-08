@@ -464,3 +464,11 @@ window.GAME_DATA.units.push({
     ]
   }
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"4.1-08": "dec-count", "4.1-10": "dec-count", "4.2-01": "dec-mul8", "4.2-02": "dec-mul8", "4.2-03": "dec-mul8", "4.2-04": "dec-mul8", "4.2-06": "dec-mul8", "4.2-07": "dec-mul8", "4.2-05": "known-product", "4.2-09": "known-product", "4.3-01": "dec-div8", "4.3-02": "dec-div8", "4.3-03": "dec-div8", "4.3-04": "dec-div8", "4.3-06": "dec-div8", "4.3-07": "dec-div8", "4.3-09": "dec-div8", "4.4-01": "dec-bracket", "4.4-02": "dec-bracket", "4.4-03": "times-point9", "4.4-06": "times-point9", "4.4-07": "times-point9"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 4; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

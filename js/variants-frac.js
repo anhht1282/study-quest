@@ -41,6 +41,7 @@
   F["frac-add"] = function (r) { return addSub(r, "+", false); };
   F["mixed-add"] = function (r) { return addSub(r, "+", true); };
   F["mixed-sub"] = function (r) { return addSub(r, "−", true); };
+  F["frac-sub"] = function (r) { return addSub(r, "−", false); };
 
   F["frac-mul"] = function (r) {
     const f1 = proper(r, 2, 9), f2 = proper(r, 2, 9), top = f1[0] * f2[0], bot = f1[1] * f2[1], res = fs(top, bot);

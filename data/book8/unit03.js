@@ -269,3 +269,11 @@ window.GAME_DATA.units.push({
   },
   project: null
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"3.1-01": "mul-01", "3.1-02": "mul-01", "3.1-03": "mul-01", "3.1-04": "mul-01", "3.1-05": "mul-01", "3.1-06": "mul-01", "3.1-07": "mul-01", "3.2-01": "round-sf", "3.2-02": "round-sf", "3.2-03": "round-sf", "3.2-05": "round-sf", "3.2-06": "round-sf", "3.2-07": "round-sf", "3.2-04": "estimate-sf"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 3; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

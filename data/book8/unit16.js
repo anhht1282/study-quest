@@ -524,4 +524,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"16.6-02": ["stats5",{"kind": "mean"}], "16.6-03": ["stats5",{"kind": "median"}], "16.6-04": ["stats5",{"kind": "range"}], "16.6-09": ["stats5",{"kind": "mean"}]};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 16; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

@@ -110,3 +110,11 @@ window.GAME_DATA.units.push({
   },
   project: null
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"10.1-01": "pct-increase", "10.1-03": "pct-increase", "10.2-04": "pct-increase", "10.2-06": "pct-increase", "10.1-02": "pct-decrease", "10.2-05": "pct-decrease", "10.1-04": "pct-what", "10.1-05": "pct-what", "10.1-06": "pct-change", "10.1-07": "pct-change", "10.1-09": "pct-repeat", "10.2-01": "multiplier", "10.2-02": "multiplier", "10.2-03": "mult-to-pct", "10.2-10": "pct-overall"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 10; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

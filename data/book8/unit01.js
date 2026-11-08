@@ -278,4 +278,9 @@
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"1.1-01": "pf-count", "1.1-02": "pf-exp", "1.1-04": "pf-value", "1.1-05": "hcf2", "1.1-07": "hcf2", "1.1-06": "lcm2", "1.1-08": "lcm2", "1.1-09": "lcm2", "1.1-10": "hcf-lcm-n", "1.2-01": "int-mul", "1.2-02": "int-div", "1.2-03": "int-brackets", "1.2-04": "int-brackets", "1.2-05": "int-missing", "1.2-07": "estimate-mul", "1.2-08": "mul-pyramid", "1.3-01": "neg-power", "1.3-02": "neg-power", "1.3-03": "cbrt-neg", "1.3-05": "cube-eq", "1.4-01": "power-eval", "1.4-03": "index-mul", "1.4-05": "index-mul", "1.4-06": "index-pow", "1.4-07": "index-div", "1.4-10": "index-base"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 1; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

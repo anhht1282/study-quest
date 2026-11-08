@@ -346,4 +346,9 @@
       ]
     }
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"8.1-10": "poly-rot-angle", "8.2-01": "circ", "8.2-02": "circ", "8.2-03": "circ", "8.2-04": "circ", "8.2-05": "circ", "8.2-06": "circ", "8.2-07": "circ-inverse", "8.2-08": "circ-inverse", "8.3-01": "solid-count", "8.3-02": "solid-count", "8.3-03": "solid-count", "8.3-05": "euler", "8.3-06": "plan-area", "8.3-10": "plan-area"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 8; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

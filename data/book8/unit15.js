@@ -394,4 +394,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
       ]
     }
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"15.1-03": "km-miles", "15.1-04": "km-miles", "15.1-05": "km-miles", "15.1-08": "km-miles", "15.2-02": "para-area", "15.2-09": "trap-area", "15.3-02": "prism-vol", "15.3-03": "prism-vol", "15.3-08": "prism-height", "15.3-09": "prism-height", "15.4-06": "tetra-area"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 15; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

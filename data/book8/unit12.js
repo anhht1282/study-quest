@@ -179,3 +179,11 @@ window.GAME_DATA.units.push({
   },
   "project": null
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"12.2-01": "share-ratio3", "12.2-02": "share-ratio3", "12.2-03": "share-ratio3", "12.2-04": "share-ratio3", "12.2-05": "ratio-diff", "12.2-08": "ratio-angles", "12.3-01": "ratio-frac", "12.3-02": "ratio-part", "12.3-03": "ratio-part"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 12; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

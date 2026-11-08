@@ -32,7 +32,7 @@ MQ.variants = (function () {
   const gcd = function (a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a; };
   const lcm = function (a, b) { return a / gcd(a, b) * b; };
   const round10 = function (x) { return Math.sign(x) * Math.round(Math.abs(x) / 10) * 10; };
-  const clean = function (x) { return Math.round(x * 1e9) / 1e9; };                     // 0.1 + 0.2 → 0.3
+  const clean = function (x) { return parseFloat(Number(x).toPrecision(12)); };          // 0.1 + 0.2 → 0.3, 8.2 × 10⁶ → 8200000
 
   // Number in a language: real minus sign, "." (en) or "," (vi) decimals, spaces in whole parts ≥ 10 000.
   function fmt(lang) {

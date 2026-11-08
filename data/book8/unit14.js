@@ -526,4 +526,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"14.6-01": "enlarge"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 14; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

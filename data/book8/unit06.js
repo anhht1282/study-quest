@@ -194,4 +194,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"6.1-09": "freq-mean", "6.2-05": "strat-sample"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 6; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

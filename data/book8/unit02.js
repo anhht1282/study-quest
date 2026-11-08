@@ -425,4 +425,9 @@
       ]
     }
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"2.2-01": "subst-neg", "2.2-02": "subst-pow", "2.2-04": "subst-pow", "2.2-05": "fixed-plus", "2.2-09": "change-subject", "2.5-02": "solve2", "2.5-03": "solve-bracket", "2.5-04": "word-age", "2.5-05": "solve-both", "2.5-07": "solve-both", "2.5-08": "tri-angles-expr", "2.6-01": "int-bound", "2.6-02": "int-bound", "2.6-03": "int-range", "2.6-08": "int-range", "2.6-09": "int-sum-range"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 2; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

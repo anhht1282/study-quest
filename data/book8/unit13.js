@@ -167,3 +167,11 @@ window.GAME_DATA.units.push({
     ]
   }
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"13.1-01": "prob-rest", "13.1-03": "dice-sum", "13.1-04": "dice-sum", "13.1-06": "dice-sum", "13.2-01": "exp-prob", "13.2-04": "exp-prob", "13.2-06": "exp-prob", "13.2-03": "expected", "13.2-09": "estimate-pop"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 13; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

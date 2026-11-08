@@ -178,3 +178,11 @@ window.GAME_DATA.units.push({
     reflect: ["Em dùng đặc điểm nào (m hay c) để loại nhanh nhất một thẻ?","Vì sao một số hàm có thể đặt vào nhiều ô, hoặc có ô chưa dùng được?","Em tự tin nhất ở kỹ năng nào: lập bảng, vẽ đồ thị hay đọc m và c?"]
   }
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"11.1-01": "fixed-plus", "11.1-03": "fixed-plus", "11.1-05": "fixed-plus-inv", "11.1-08": "word-age", "11.1-10": "empty-time", "11.3-10": "empty-time", "11.2-01": "line-y", "11.2-02": "line-y", "11.2-04": "line-y", "11.2-05": "x-intercept", "11.2-10": "x-intercept", "11.3-01": "gradient-read", "11.3-02": "gradient-read", "11.3-03": "gradient-read"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 11; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();

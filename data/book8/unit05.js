@@ -305,4 +305,9 @@ window.GAME_DATA = window.GAME_DATA || { units: [] };
     },
     project: null
   });
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"5.2-05": "ext-iso", "5.2-06": "ext-angle", "5.2-08": "ext-third", "5.3-05": "tri-third"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 5; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
 })();

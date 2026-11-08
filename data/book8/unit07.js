@@ -167,3 +167,11 @@ window.GAME_DATA.units.push({
   },
   project: null
 });
+
+(function () {
+  // 🎲 number variants for spaced review (js/variants*.js)
+  const GEN = {"7.1-01": "frac-to-dec", "7.1-04": "recur-digit", "7.3-01": "mixed-sub", "7.3-02": "mixed-sub", "7.3-03": "mixed-sub", "7.3-04": "mixed-sub", "7.3-06": "mixed-sub", "7.4-01": "mixed-times-int", "7.4-02": "mixed-times-int", "7.4-03": "mixed-times-int", "7.4-04": "mixed-times-int", "7.5-01": "int-div-frac", "7.5-02": "int-div-frac", "7.5-05": "int-div-frac", "7.5-06": "int-div-frac", "7.5-08": "int-div-frac", "7.6-01": "frac-add", "7.6-02": "frac-add", "7.6-03": "frac-sub", "7.6-05": "frac-rest", "7.6-06": "frac-rest"};
+  window.GAME_DATA.units.filter(function (u) { return u.id === 7; }).forEach(function (u) {
+    u.sections.forEach(function (s) { s.questions.forEach(function (q) { if (GEN[q.id]) q.gen = GEN[q.id]; }); });
+  });
+})();
